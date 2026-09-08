@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MANGANAI — AI Manganese Mining Intelligence</title>
+<style>
+:root{--bg:#08110f;--panel:#0e1b18;--panel2:#12231f;--line:#20352f;--text:#eaf5f0;--muted:#8da39b;--green:#49d69a;--cyan:#4bc9d8;--amber:#f5b84b;--red:#ff6678;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -10%,#17362d 0,#08110f 42%);color:var(--text);font:14px Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.side{background:#091512;border-right:1px solid var(--line);padding:22px 16px;position:sticky;top:0;height:100vh}.brand{font-size:21px;font-weight:800;letter-spacing:.5px}.brand span{color:var(--green)}.sub{font-size:10px;color:var(--muted);margin-top:4px;letter-spacing:1.5px}.nav{margin-top:35px;display:grid;gap:7px}.nav button{background:transparent;border:0;color:#9eb2aa;text-align:left;padding:12px;border-radius:10px;cursor:pointer;font-size:13px}.nav button.active,.nav button:hover{background:#13251f;color:#fff}.sidefoot{position:absolute;bottom:20px;color:#71877f;font-size:11px;line-height:1.5}
+.main{padding:24px 28px 40px;max-width:1600px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.eyebrow{color:var(--green);font-size:11px;font-weight:700;letter-spacing:1.5px}.title{font-size:27px;font-weight:800;margin-top:5px}.controls{display:flex;gap:10px;align-items:center}.select,.btn{background:#10201c;border:1px solid var(--line);color:var(--text);padding:9px 12px;border-radius:9px}.btn{cursor:pointer}.btn:hover{border-color:#356255}.demo{font-size:10px;color:#b7c9c2;background:#182923;border:1px solid #29483e;padding:7px 9px;border-radius:20px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card{background:linear-gradient(145deg,#10201c,#0d1816);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 12px 30px #0002}.label{color:var(--muted);font-size:11px}.big{font-size:27px;font-weight:800;margin-top:8px}.trend{font-size:11px;margin-top:8px}.up{color:var(--green)}.warn{color:var(--amber)}.danger{color:var(--red)}
+.grid{display:grid;grid-template-columns:1.55fr 1fr;gap:14px;margin-top:14px}.mapcard{min-height:465px}.cardhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.cardtitle{font-size:15px;font-weight:700}.small{font-size:11px;color:var(--muted)}
+.map{height:370px;border-radius:11px;position:relative;overflow:hidden;border:1px solid #29433a;background:radial-gradient(circle at 25% 40%,#183b30 0,#0e2720 34%,#0b1916 72%)}.map:before{content:"";position:absolute;inset:0;background:linear-gradient(130deg,transparent 30%,#4c8b6922 31%,transparent 32%),linear-gradient(25deg,transparent 42%,#73b28c18 43%,transparent 44%),repeating-linear-gradient(165deg,transparent 0 45px,#3a5e5020 46px 47px)}.river{position:absolute;width:120%;height:42px;border-top:2px solid #4bc9d866;transform:rotate(-18deg);left:-8%;top:55%;border-radius:50%}.zone{position:absolute;border-radius:50%;filter:drop-shadow(0 0 12px #49d69a88);cursor:pointer}.z1{width:105px;height:78px;left:57%;top:26%;background:#49d69a38;border:2px solid #49d69a}.z2{width:80px;height:62px;left:31%;top:48%;background:#f5b84b35;border:2px solid #f5b84b}.z3{width:60px;height:48px;left:71%;top:64%;background:#ff667833;border:2px solid #ff6678}.pin{position:absolute;width:10px;height:10px;background:#fff;border-radius:50%;box-shadow:0 0 0 4px #ffffff33;cursor:pointer}.p1{left:65%;top:43%}.p2{left:39%;top:59%}.p3{left:76%;top:72%}.maplegend{position:absolute;bottom:12px;left:12px;background:#091512e8;padding:9px 11px;border:1px solid #284239;border-radius:9px;font-size:10px}.legendrow{display:flex;gap:8px;align-items:center;margin:4px}.dot{width:8px;height:8px;border-radius:50%}.high{background:var(--green)}.med{background:var(--amber)}.low{background:var(--red)}
+.sidepanel{display:grid;gap:14px}.score{display:flex;align-items:center;gap:18px}.ring{width:105px;height:105px;border-radius:50%;background:conic-gradient(var(--green) 0 86%,#1c3029 86%);display:grid;place-items:center}.ring:after{content:"";width:79px;height:79px;background:#0f1d19;border-radius:50%;position:absolute}.ring b{z-index:1;font-size:25px}.meter{height:8px;background:#1b2c27;border-radius:8px;overflow:hidden;margin-top:8px}.meter i{display:block;height:100%;background:var(--green);border-radius:8px}.row{display:flex;justify-content:space-between;margin:8px 0}.recommend{border-color:#2d6250;background:linear-gradient(145deg,#10241e,#0e1916)}.recbadge{color:#091512;background:var(--green);font-size:9px;font-weight:800;padding:4px 7px;border-radius:20px}.rec{font-size:13px;line-height:1.55;margin:10px 0}.action{background:#15352b;border:1px solid #2a5e4d;border-radius:9px;padding:10px;font-size:11px;color:#cce9df}
+.chart{height:205px;display:flex;align-items:end;gap:10px;padding:18px 6px 4px}.bar{flex:1;background:linear-gradient(to top,#24644d,#49d69a);border-radius:5px 5px 2px 2px;min-height:10px;position:relative}.bar span{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:9px;color:#829991}.bar em{position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-size:9px;color:#b8c9c2;font-style:normal}
+.equip{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.machine{padding:12px;background:#0b1714;border:1px solid var(--line);border-radius:10px}.machine b{display:block;margin-bottom:8px}.status{font-size:10px}.online{color:var(--green)}.maint{color:var(--amber)}.offline{color:var(--red)}
+.footer{margin-top:15px;text-align:center;color:#60756e;font-size:10px}
+@media(max-width:950px){.app{grid-template-columns:1fr}.side{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.main{padding:18px}.top{align-items:flex-start;gap:15px;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand">MANGAN<span>AI</span></div><div class="sub">MINING INTELLIGENCE</div>
+  <div class="nav">
+    <button class="active">◉ Overview</button><button>⌁ Prospectivity Map</button><button>◌ Production</button><button>⚙ Equipment</button><button>☁ Weather & Risk</button><button>✦ AI Recommendations</button>
+  </div>
+  <div class="sidefoot">SIH COLLEGE HACKATHON<br>Prototype • Sample Data v1.0</div>
+</aside>
+<main class="main">
+  <div class="top">
+    <div><div class="eyebrow">AI-POWERED MANGANESE OPERATIONS</div><div class="title">Mine Intelligence Dashboard</div></div>
+    <div class="controls"><span class="demo">SIMULATED / DEMO DATA</span><select class="select" id="mine"><option>Central India — Mine Alpha</option><option>Central India — Mine Beta</option></select><button class="btn" onclick="refresh()">↻ Refresh</button></div>
+  </div>
+
+  <section class="kpis">
+    <div class="card"><div class="label">MANGANESE PROSPECTIVITY</div><div class="big" id="pros">86%</div><div class="trend up">▲ High exploration priority</div></div>
+    <div class="card"><div class="label">NEXT-MONTH PRODUCTION</div><div class="big" id="forecast">8,750 t</div><div class="trend warn">▼ 12.5% vs target</div></div>
+    <div class="card"><div class="label">PRODUCTION TARGET</div><div class="big">10,000 t</div><div class="trend">Current month: 8,420 t</div></div>
+    <div class="card"><div class="label">SHORTFALL RISK</div><div class="big danger">HIGH</div><div class="trend danger">Expected gap: 1,250 t</div></div>
+  </section>
+
+  <section class="grid">
+    <div class="card mapcard">
+      <div class="cardhead"><div><div class="cardtitle">Geological Prospectivity Map</div><div class="small">Illustrative exploration zones • click a zone for details</div></div><button class="btn" onclick="selectZone(1)">Analyze Zone</button></div>
+      <div class="map" id="map">
+        <div class="river"></div><div class="zone z1" onclick="selectZone(1)" title="Zone A"></div><div class="zone z2" onclick="selectZone(2)" title="Zone B"></div><div class="zone z3" onclick="selectZone(3)" title="Zone C"></div>
+        <div class="pin p1"></div><div class="pin p2"></div><div class="pin p3"></div>
+        <div class="maplegend"><div><b>Prospectivity</b></div><div class="legendrow"><i class="dot high"></i> High</div><div class="legendrow"><i class="dot med"></i> Medium</div><div class="legendrow"><i class="dot low"></i> Low</div></div>
+      </div>
+    </div>
+
+    <div class="sidepanel">
+      <div class="card">
+        <div class="cardhead"><div class="cardtitle">Zone A — Prospectivity</div><span class="recbadge">HIGH</span></div>
+        <div class="score"><div class="ring"><b>86%</b></div><div style="flex:1"><div class="label">AI confidence score</div><div class="row"><span>Geology</span><b>91%</b></div><div class="meter"><i style="width:91%"></i></div><div class="row"><span>Satellite indicators</span><b>84%</b></div><div class="meter"><i style="width:84%"></i></div></div></div>
+      </div>
+      <div class="card recommend"><div class="cardhead"><div class="cardtitle">AI Recommendation</div><span class="recbadge">ACTION</span></div>
+        <div class="rec">Production is forecast below target mainly due to <b>equipment downtime</b> and elevated rainfall risk.</div>
+        <div class="action">→ Prioritize maintenance for Excavator E-04 and shift the next blast window to Zone A. Estimated recovery: <b>+1,250 t</b>.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <div class="cardhead"><div><div class="cardtitle">Production Forecast</div><div class="small">Monthly tonnes — illustrative sample series</div></div><span class="small">Target: 10,000 t</span></div>
+      <div class="chart">
+        <div class="bar" style="height:64%"><em>6.4k</em><span>Apr</span></div><div class="bar" style="height:72%"><em>7.2k</em><span>May</span></div><div class="bar" style="height:81%"><em>8.1k</em><span>Jun</span></div><div class="bar" style="height:85%"><em>8.4k</em><span>Jul</span></div><div class="bar" style="height:79%"><em>7.9k</em><span>Aug</span></div><div class="bar" style="height:87%"><em>8.75k</em><span>Sep*</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="cardhead"><div><div class="cardtitle">Weather & Rainfall Risk</div><div class="small">Operational impact indicator</div></div><span class="warn">● MODERATE</span></div>
+      <div class="big">72 mm</div><div class="small">Expected rainfall • next 7 days</div>
+      <div class="row" style="margin-top:18px"><span>Rainfall risk</span><b class="warn">68%</b></div><div class="meter"><i style="width:68%;background:var(--amber)"></i></div>
+      <div class="row"><span>Road accessibility</span><b class="warn">Moderate</b></div><div class="row"><span>Blasting window</span><b class="up">Favorable</b></div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:14px">
+    <div class="cardhead"><div><div class="cardtitle">Equipment Health</div><div class="small">Fleet availability and maintenance signals</div></div><span class="up">84% fleet availability</span></div>
+    <div class="equip">
+      <div class="machine"><b>Excavator E-04</b><span class="status maint">● Maintenance due</span><div class="small" style="margin-top:7px">Availability 61% • 18h downtime</div></div>
+      <div class="machine"><b>Haul Truck H-12</b><span class="status online">● Operational</span><div class="small" style="margin-top:7px">Availability 93% • 4h downtime</div></div>
+      <div class="machine"><b>Drill Rig D-02</b><span class="status online">● Operational</span><div class="small" style="margin-top:7px">Availability 89% • 6h downtime</div></div>
+    </div>
+  </section>
+
+  <div class="footer">MANGANAI • SIH prototype • All displayed operational figures are simulated for demonstration and must be replaced with validated mine data before real-world use.</div>
+</main>
+</div>
+<script>
+function selectZone(n){const names={1:"Zone A — 86% prospectivity",2:"Zone B — 63% prospectivity",3:"Zone C — 28% prospectivity"};alert(names[n]+"\\n\\nPriority is calculated from illustrative geological and satellite indicators.");}
+function refresh(){document.getElementById("forecast").textContent="8,820 t";document.querySelector(".footer").textContent="MANGANAI • Dashboard refreshed • Simulated / demo data";}
+</script>
+</body></html>
