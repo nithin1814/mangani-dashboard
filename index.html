@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GeoMine AI</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #0a0f1c;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* HERO */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(10,15,28,0.85), rgba(10,15,28,0.95)),
+    url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: #00ffe0;
+}
+
+.hero p {
+    margin: 20px 0;
+    max-width: 700px;
+    color: #ccc;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.btn {
+    padding: 12px 25px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: #00ffe0;
+    color: black;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #00ffe0;
+    color: #00ffe0;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* SECTIONS */
+.section {
+    padding: 80px 10%;
+    text-align: center;
+}
+
+.section h2 {
+    color: #00ffe0;
+    margin-bottom: 30px;
+}
+
+/* STEPS */
+.steps {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.step {
+    flex: 1;
+    min-width: 250px;
+    padding: 25px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.05);
+    transition: 0.3s;
+}
+
+.step:hover {
+    transform: translateY(-10px);
+    background: rgba(0,255,224,0.1);
+}
+
+/* MAP */
+.map-preview {
+    height: 300px;
+    border-radius: 15px;
+    background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470') center/cover;
+}
+
+/* STATS */
+.stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.stat h3 {
+    color: #00ffe0;
+    font-size: 2rem;
+}
+
+/* AI */
+.ai-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+}
+
+.ai-text, .ai-box {
+    flex: 1;
+}
+
+.ai-box {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 15px;
+}
+
+/* UPLOAD */
+.upload-box {
+    border: 2px dashed #00ffe0;
+    padding: 40px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.upload-box:hover {
+    background: rgba(0,255,224,0.1);
+}
+
+.result-box {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+}
+
+/* FOOTER */
+footer {
+    background: #05080f;
+    padding: 20px;
+    text-align: center;
+    color: #aaa;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>GeoMine AI</h1>
+    <p>Using satellite data and AI to identify manganese-rich zones and prevent production losses.</p>
+
+    <div class="buttons">
+        <button class="btn btn-primary">Explore Dashboard</button>
+        <button class="btn btn-secondary">View Insights</button>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+    <h2>How It Works</h2>
+    <div class="steps">
+        <div class="step">
+            <h3>🛰️ Satellite Data</h3>
+            <p>Collects NDVI, terrain & temperature</p>
+        </div>
+        <div class="step">
+            <h3>🤖 AI Analysis</h3>
+            <p>Predicts manganese zones & risks</p>
+        </div>
+        <div class="step">
+            <h3>📊 Smart Decisions</h3>
+            <p>Suggests actions to reduce losses</p>
+        </div>
+    </div>
+</section>
+
+<!-- UPLOAD -->
+<section class="section">
+    <h2>Analyze Your Region</h2>
+    <p>Upload a map or satellite image</p>
+
+    <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+        📁 Click to Upload File
+        <input type="file" id="fileInput" hidden>
+    </div>
+
+    <br>
+    <button class="btn btn-secondary" onclick="analyze()">Analyze Region</button>
+
+    <div id="result" class="result-box"></div>
+</section>
+
+<!-- MAP -->
+<section class="section">
+    <h2>AI Manganese Map</h2>
+    <div class="map-preview"></div>
+</section>
+
+<!-- STATS -->
+<section class="section">
+    <h2>Impact</h2>
+    <div class="stats">
+        <div class="stat">
+            <h3>30%</h3>
+            <p>Faster Exploration</p>
+        </div>
+        <div class="stat">
+            <h3>25%</h3>
+            <p>Reduced Loss</p>
+        </div>
+        <div class="stat">
+            <h3>100%</h3>
+            <p>AI Driven</p>
+        </div>
+    </div>
+</section>
+
+<!-- AI -->
+<section class="section ai-section">
+    <div class="ai-text">
+        <h2>Not Just Data — Decisions</h2>
+        <p>Predict shortfalls, analyze causes, and get smart recommendations.</p>
+    </div>
+
+    <div class="ai-box">
+        <h3>💡 AI Suggestion</h3>
+        <p>Shift mining operations to high-potential zones.</p>
+        <p><b>+1200 tonnes recovery</b></p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    GeoMine AI | SIH Project
+</footer>
+
+<script>
+function analyze() {
+    const result = document.getElementById("result");
+
+    result.innerHTML = `
+        <h3>📊 AI Result</h3>
+        <p>🟢 Manganese Probability: <b>82%</b></p>
+        <p>🌍 Geological Match: High</p>
+        <p>⚠️ Risk Level: Medium</p>
+        <p>💡 Recommendation: Start exploration in northern zone</p>
+    `;
+}
+</script>
+
+</body>
+</html>
